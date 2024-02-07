@@ -1,0 +1,89 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Ejercicio 1
+        int[] numeros = new int[10];
+        Console.WriteLine("Ingrese 10 enteros:");
+        for (int i = 0; i < 10; i++)
+        {
+            numeros[i] = int.Parse(Console.ReadLine());
+        }
+        int maximo = numeros[0];
+        int posicionMaximo = 0;
+        for (int i = 1; i < 10; i++)
+        {
+            if (numeros[i] > maximo)
+            {
+                maximo = numeros[i];
+                posicionMaximo = i;
+            }
+        }
+        Console.WriteLine($"El mayor número leído es {maximo} y está en la posición {posicionMaximo}");
+
+        // Ejercicio 2
+        int mayorPar = Int32.MinValue;
+        int posicionMayorPar = -1;
+        for (int i = 0; i < 10; i++)
+        {
+            if (numeros[i] % 2 == 0 && numeros[i] > mayorPar)
+            {
+                mayorPar = numeros[i];
+                posicionMayorPar = i;
+            }
+        }
+        if (posicionMayorPar != -1)
+            Console.WriteLine($"El mayor número par leído es {mayorPar} y está en la posición {posicionMayorPar}");
+        else
+            Console.WriteLine("No se encontraron números pares.");
+
+        // Ejercicio 4
+        int cantidadPrimos = 0;
+        foreach (int num in numeros)
+        {
+            if (EsDigitoPrimo(num.ToString()[0] - '0'))
+            {
+                cantidadPrimos++;
+            }
+        }
+        Console.WriteLine($"Hay {cantidadPrimos} números que comienzan con un dígito primo.");
+
+        // Ejercicio 7
+        int suma = 0;
+        foreach (int num in numeros)
+        {
+            suma += num;
+        }
+        double promedio = suma / 10.0;
+        Console.WriteLine($"El promedio entero de los datos del arreglo es {promedio}");
+
+        // Ejercicio 10
+        Console.WriteLine("Ingrese un número entero:");
+        int numero = int.Parse(Console.ReadLine());
+        int divisoresExactos = 0;
+        foreach (int num in numeros)
+        {
+            if (num != 0 && numero % num == 0)
+            {
+                divisoresExactos++;
+            }
+        }
+        Console.WriteLine($"El número {numero} tiene {divisoresExactos} divisores exactos entre los valores almacenados en el arreglo.");
+
+        Console.ReadLine();
+    }
+
+    static bool EsDigitoPrimo(int n)
+    {
+        if (n <= 1) return false;
+        if (n <= 3) return true;
+        if (n % 2 == 0 || n % 3 == 0) return false;
+        for (int i = 5; i * i <= n; i += 6)
+        {
+            if (n % i == 0 || n % (i + 2) == 0) return false;
+        }
+        return true;
+    }
+}
